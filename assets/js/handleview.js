@@ -38,25 +38,26 @@ $('#backBtn').click(function () {
 
 var animations = {
     firstTransition: function () {
-    $('#introduction')
-        .delay(300)
-        .fadeOut()
-        .queue(function () {
-        // move the header up
-        section.modeHeaderUp('#header');
+        $('#introduction')
+            .delay(300)
+            .fadeOut()
+            .queue(function () {
+                // move the header up
+                section.modeHeaderUp('#header');
 
-        // give visitor some words
-        var visitorName = $('#ask-name').val();
-        $('#salutation').text('Hi '+ visitorName + '! Glad to see you');
-        $('#opening-word').text('Sorry we can\'t shake hand yet since pandemic still around. Wish you safe and healthy 😷');
+                // give visitor some words
+                var visitorName = $('#ask-name').val();
+                $('#salutation').text('Hi '+ visitorName + '! Glad to see you');
+                $('#opening-word').text('Sorry we can\'t shake hand yet since pandemic still around. Wish you safe and healthy 😷');
+        
+                // hide input name
+                $('#ask-name').hide();
 
-        // hide input name
-        $('#ask-name').hide();
+                // show another section
+                $('#main-menu').addClass('section-show');            
+            });
 
-        // show another section
-        $('#main-menu').addClass('section-show');            
-        });
-    $('#notNow').fadeOut();
+        $('#notNow').fadeOut();
     }
 }
 
