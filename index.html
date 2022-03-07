@@ -39,7 +39,7 @@
         <h2>I'm a software <span>developer</span> from Indonesia</h2>
       </div>
       <h1 id="salutation"></h1>
-      <input type="text" name="visitor-name" id="ask-name" placeholder="May I have your name?"><br />
+      <input type="text" onblur="(function(){$('#okBtn').hide()})();return false;" name="visitor-name" id="ask-name" placeholder="May I have your name?"><br />
       <button class="btn btn-success" onclick="(function(){$('#ask-name').trigger('change');$('#okBtn').hide()})();return false;" id="okBtn" style="margin-top:10px">OK</button>      
       <button class="btn" id="notNow" style="margin-top:10px;background:#131e33;color:#eee">Not now</button>      
       <button class="btn btn-md" id="backBtn" style="margin-top:10px;color:#18d26e;display: none;">

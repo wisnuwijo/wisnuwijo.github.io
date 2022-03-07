@@ -37,7 +37,7 @@ $('#backBtn').click(function () {
 });
 
 var animations = {
-    firstTransition: function () {
+    firstTransition: function () {        
         $('#introduction')
             .delay(300)
             .fadeOut()
@@ -51,7 +51,7 @@ var animations = {
                 $('#opening-word').text('Sorry we can\'t shake hand yet since pandemic still around. Wish you safe and healthy 😷');
         
                 // hide input name
-                $('#ask-name').hide();
+                $('#ask-name').hide();        
 
                 // show another section
                 $('#main-menu').addClass('section-show');            
