@@ -633,9 +633,6 @@ video {
 .left-0 {
   left: 0px;
 }
-.left-\[calc\(50\%\+3rem\)\] {
-  left: calc(50% + 3rem);
-}
 .left-\[calc\(50\%-11rem\)\] {
   left: calc(50% - 11rem);
 }
@@ -644,9 +641,6 @@ video {
 }
 .top-0 {
   top: 0px;
-}
-.top-\[calc\(100\%-13rem\)\] {
-  top: calc(100% - 13rem);
 }
 .isolate {
   isolation: isolate;
@@ -853,9 +847,9 @@ video {
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
-.from-\[\#ff80b5\] {
-  --tw-gradient-from: #ff80b5 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(255 128 181 / 0) var(--tw-gradient-to-position);
+.from-\[\#077DFF\] {
+  --tw-gradient-from: #077DFF var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(7 125 255 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 .from-white {
@@ -868,20 +862,9 @@ video {
   --tw-gradient-to: rgb(228 228 231 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
-.from-\[\#077DFF\] {
-  --tw-gradient-from: #077DFF var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(7 125 255 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
 .via-white {
   --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #fff var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-.to-\[\#9089fc\] {
-  --tw-gradient-to: #9089fc var(--tw-gradient-to-position);
-}
-.to-\[\#ff0000\] {
-  --tw-gradient-to: #ff0000 var(--tw-gradient-to-position);
 }
 .to-\[\#077DFF\] {
   --tw-gradient-to: #077DFF var(--tw-gradient-to-position);
@@ -950,14 +933,14 @@ video {
 .pb-6 {
   padding-bottom: 1.5rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
 .pt-14 {
   padding-top: 3.5rem;
 }
 .pt-8 {
   padding-top: 2rem;
-}
-.pb-8 {
-  padding-bottom: 2rem;
 }
 .text-center {
   text-align: center;
@@ -1350,16 +1333,8 @@ body {
     top: -20rem;
   }
 
-  .sm\:left-\[calc\(50\%\+36rem\)\] {
-    left: calc(50% + 36rem);
-  }
-
   .sm\:left-\[calc\(50\%-30rem\)\] {
     left: calc(50% - 30rem);
-  }
-
-  .sm\:top-\[calc\(100\%-30rem\)\] {
-    top: calc(100% - 30rem);
   }
 
   .sm\:mb-8 {
