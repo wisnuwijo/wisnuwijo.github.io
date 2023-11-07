@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import { InboxArrowDownIcon, PhoneIcon } from '@heroicons/react/20/solid'
 
+export const metadata = {
+    title: 'Wisnu - About',
+}
+
 export default function About() {
     return (
         <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
@@ -85,7 +89,7 @@ export default function About() {
                                 </Link>
                                 <Link href="/skills" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
                                     Skill
-                                </Link>
+                                </Link> <br /><br />
                                 <Link href="/experiences" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
                                     Experiences
                                 </Link>
