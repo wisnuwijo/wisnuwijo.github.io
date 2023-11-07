@@ -10,8 +10,7 @@ const navigation = [
     { name: 'About', href: '/about' },
     { name: 'Experiences', href: '/experiences' },
     { name: 'Skills', href: '/skills' },
-    { name: 'Education', href: '/education' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Education', href: '/educations' }
 ]
 
 export default function Example() {
