@@ -48,7 +48,7 @@ export default function About() {
                     <div className="rounded-full overflow-hidden">
                         <img
                             className="rounded-xl ring-1 ring-gray-400/10"
-                            src="https://dygdaya.com/wisnu02.png"
+                            src="https://dygdaya.com/wp-content/uploads/2024/02/wisnu02.png"
                             alt=""
                         />
                     </div>
