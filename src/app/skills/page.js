@@ -77,7 +77,7 @@ export default function Skills() {
                                 </span>
                             </div>
                             <div className="alert bg-secondary border-0 mt-2">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg" />
+                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" />
                                 <span className="text-white">
                                     <strong>Laravel - Advanced</strong>
                                     <p>
@@ -99,7 +99,7 @@ export default function Skills() {
                             <ul className="menu bg-base-200 w-100 rounded-box">
                                 <li>
                                     <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain.svg" />
+                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" />
                                         MySQL - Advanced
                                     </a>
                                 </li>
