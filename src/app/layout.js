@@ -29,6 +29,16 @@ export default function RootLayout({ children }) {
           }}
         />
         {/* End Google Tag Manager */}
+        
+        {/* 10xlaunch */}
+        <script
+            src="https://app.10xlaunch.ai/widget"
+            data-app-id="92be7fc9-3c5c-4bd2-8e71-30778e46f3e4"
+            async
+            defer
+            >
+        </script>
+        {/* End of 10xlaunch */}
       </head>
       <body className={inter.className}>{children}</body>
     </html>
