@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
-      NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+      NEXT_PUBLIC_POSTHOG_KEY: "phc_qsg0RrsCd5MdGyDM82lvVv8QbzlI0o2c7aYP7TSDQC6"
+      NEXT_PUBLIC_POSTHOG_HOST: "https://us.i.posthog.com"
 
     steps:
       - name: Checkout
