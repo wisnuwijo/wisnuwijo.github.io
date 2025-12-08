@@ -1,156 +1,253 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Head from "next/head";
 
 const navigation = [
+    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
+    { name: 'Portfolio', href: '/portfolio' },
     { name: 'Experiences', href: '/experiences' },
     { name: 'Skills', href: '/skills' },
     { name: 'Education', href: '/educations' }
 ]
 
-export default function Example() {
+export default function Index() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [yoe, setYoe] = useState(0)
+
+    useEffect(() => {
+        const yoe = new Date().getFullYear() - 2018
+        setYoe(yoe)
+    }, [])
 
     return (
-        <>
-            <Head>
-                <title>Nextly - Free Nextjs & TailwindCSS Landing Page Template</title>
-                <meta
-                name="description"
-                content="Nextly is a free landing page template built with next.js & Tailwind CSS"
-                />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <div className="bg-white pb-8">
-                <header className="absolute inset-x-0 bottom-0 z-50">
-                    <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div className="h-screen w-screen relative overflow-hidden" style={{
+            backgroundColor: '#ffffffff',
+            backgroundImage: `
+                linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px',
+            backgroundPosition: '0 0',
+        }}>
+            {/* Mobile Menu Dialog */}
+            <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l shadow-2xl" style={{
+                    borderLeft: '3px solid',
+                    borderImage: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234)) 1'
+                }}>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                W
+                            </div>
+                            <span className="font-semibold text-gray-900">Menu</span>
+                        </div>
+                        <button
+                            type="button"
+                            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-gray-100"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span className="sr-only">Close menu</span>
+                            <XMarkIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="mt-6 flow-root">
+                        <div className="space-y-2 py-6">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </Dialog.Panel>
+            </Dialog>
+
+            {/* Navigation Bar - Stuck to top with gradient top border */}
+            <div className="fixed top-0 left-0 right-0 z-20">
+                {/* Gradient top border */}
+                <div className="h-[10px]" style={{
+                    background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                }}></div>
+
+                {/* Blue background nav */}
+                <nav className="px-6 py-4" style={{
+                    backgroundColor: 'rgba(0, 140, 255, 0.1)',
+                    backdropFilter: 'blur(2px)',
+                    WebkitBackdropFilter: 'blur(2px)',
+                }}>
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
                         <div className="flex lg:flex-1">
-                            <a href="#" className="-m-1.5 p-1.5">
-                                <span className="sr-only">Your Company</span>
-                                {/* <img
-                                    className="h-8 w-auto"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                    alt=""
-                                /> */}
-                            </a>
+                            <Link href="/" className="group flex items-center gap-2">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    W
+                                </div>
+                            </Link>
                         </div>
                         <div className="flex lg:hidden">
                             <button
                                 type="button"
-                                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
                                 onClick={() => setMobileMenuOpen(true)}
                             >
                                 <span className="sr-only">Open main menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                             </button>
                         </div>
-                        <div className="hidden lg:flex lg:gap-x-12">
+                        <div className="hidden lg:flex lg:gap-x-2">
                             {navigation.map((item) => (
-                                <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">{item.name}</Link>
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/'
+                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                        : 'text-gray-900 hover:bg-gray-100'
+                                        }`}
+                                >
+                                    {item.name}
+                                </Link>
                             ))}
                         </div>
-                        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                            {/* <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                                Log in <span aria-hidden="true">&rarr;</span>
-                            </a> */}
-                        </div>
-                    </nav>
-                    <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-                        <div className="fixed inset-0 z-50" />
-                        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                            <div className="flex items-center justify-between">
-                                <a href="#" className="-m-1.5 p-1.5">
-                                    <span className="sr-only">Your Company</span>
-                                    Menu
-                                    {/* <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                        alt=""
-                                    /> */}
-                                </a>
-                                <button
-                                    type="button"
-                                    className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    <span className="sr-only">Close menu</span>
-                                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                                </button>
-                            </div>
-                            <div className="mt-6 flow-root">
-                                <div className="-my-6 divide-y divide-gray-500/10">
-                                    <div className="space-y-2 py-6">
-                                        {navigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                            >
-                                                {item.name}
-                                            </a>
-                                        ))}
-                                    </div>
-                                    <div className="py-6">
-                                        {/* <a
-                                            href="#"
-                                            className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                        >
-                                            Log in
-                                        </a> */}
+                        <div className="hidden lg:flex lg:flex-1 lg:justify-end" />
+                    </div>
+                </nav>
+            </div>
+
+            {/* Main content */}
+            <div className="w-full h-full relative z-10 flex flex-col pt-24">
+                {/* Content area - centered */}
+                <div className="flex-1 flex items-center justify-center overflow-y-auto">
+                    <div className="text-center space-y-4 w-full py-8">
+                        <div className="px-6 max-w-4xl mx-auto">
+                            {/* Avatar */}
+                            <div className="flex justify-center mb-4">
+                                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-1 shadow-xl">
+                                    <div className="w-full h-full rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold" style={{
+                                        color: 'rgba(255, 255, 255, 0.95)',
+                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(142, 209, 252, 0.15) 100%)',
+                                        backdropFilter: 'blur(40px) saturate(100%)',
+                                    }}>
+                                        W
                                     </div>
                                 </div>
                             </div>
-                        </Dialog.Panel>
-                    </Dialog>
-                </header>
 
-                <div className="relative isolate px-6 pt-14 lg:px-8">
-                    <div
-                        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                        aria-hidden="true"
-                    >
-                        <div
-                            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#077DFF] to-[#077DFF] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                            style={{
-                                clipPath:
-                                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                            }}
-                        />
-                    </div>
-                    <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                        {/* <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                                Announcing our next round of funding.{' '}
-                                <a href="#" className="font-semibold text-indigo-600">
-                                    <span className="absolute inset-0" aria-hidden="true" />
-                                    Read more <span aria-hidden="true">&rarr;</span>
-                                </a>
+                            {/* Greeting badge */}
+                            <div className="flex justify-center mb-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{
+                                    color: 'rgba(0, 0, 0, 0.7)',
+                                    background: 'rgba(0, 0, 0, 0.05)',
+                                    backdropFilter: 'blur(30px) saturate(150%)',
+                                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                                }}>
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                    </span>
+                                    Available for opportunities
+                                </div>
                             </div>
-                        </div> */}
-                        <div className="text-center">
-                            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Hello! I am Wisnu Wijokangko
-                            </h1>
-                            <p className="mt-6 text-lg leading-8 text-gray-600">
-                                Senior software engineer with nearly five years of technical experience in designing and building user-friendly applications and a proven track record of leadership.
-                            </p>
-                            <div className="mt-10 flex items-center justify-center gap-x-6">
-                                <Link href="/about" className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    Get to know me
-                                </Link>
-                                <Link href="/portfolio" className="text-sm font-semibold leading-6 text-gray-900">
-                                    See Portfolio <span aria-hidden="true">→</span>
-                                </Link>
+
+                            {/* Main heading */}
+                            <div className="space-y-3 mb-4">
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                                    Hello! I am
+                                    <br />
+                                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                                        Wisnu Wijokangko
+                                    </span>
+                                </h1>
+                                <p className="mt-3 text-sm md:text-base leading-relaxed max-w-xl mx-auto" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
+                                    Senior software engineer with {yoe}+ years of technical experience in designing and building user-friendly applications and a proven track record of leadership.
+                                </p>
+                            </div>
+
+                            {/* CTA Buttons */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                <a
+                                    href="/about"
+                                    className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
+                                >
+                                    <span className="relative z-10">Get to know me</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                </a>
+                                <a
+                                    href="/portfolio"
+                                    className="group px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2"
+                                    style={{
+                                        color: 'rgba(0, 0, 0, 0.8)',
+                                        background: 'rgba(0, 0, 0, 0.05)',
+                                        backdropFilter: 'blur(30px) saturate(150%)',
+                                        border: '1px solid rgba(0, 0, 0, 0.15)',
+                                    }}
+                                >
+                                    See Portfolio
+                                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Scrolling feature cards - Fixed at bottom */}
+                <div className="w-full" style={{
+                    background: 'rgba(255, 255, 255, 1)',
+                    backdropFilter: 'blur(40px)',
+                    WebkitBackdropFilter: 'blur(40px)',
+                }}>
+                    <div className="overflow-hidden w-full py-6">
+                        <div className="flex gap-2 scroll-rtl">
+                            {[
+                                { icon: '💼', label: '5+ Years', desc: 'Experience' },
+                                { icon: '🚀', label: 'Full Stack', desc: 'Development' },
+                                { icon: '👥', label: 'Leadership', desc: 'Proven Track' },
+                                { icon: '⚡', label: 'Performance', desc: 'Optimization' },
+                                { icon: '🎨', label: 'UI/UX', desc: 'Design' },
+                                { icon: '☁️', label: 'Cloud', desc: 'Architecture' },
+                                { icon: '📱', label: 'Mobile', desc: 'Development' },
+                                { icon: '🔧', label: 'DevOps', desc: 'CI/CD' },
+                                // Duplicate items for seamless loop
+                                { icon: '💼', label: '5+ Years', desc: 'Experience' },
+                                { icon: '🚀', label: 'Full Stack', desc: 'Development' },
+                                { icon: '👥', label: 'Leadership', desc: 'Proven Track' },
+                                { icon: '⚡', label: 'Performance', desc: 'Optimization' },
+                                { icon: '🎨', label: 'UI/UX', desc: 'Design' },
+                                { icon: '☁️', label: 'Cloud', desc: 'Architecture' },
+                                { icon: '📱', label: 'Mobile', desc: 'Development' },
+                                { icon: '🔧', label: 'DevOps', desc: 'CI/CD' },
+                            ].map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="rounded-lg px-3 py-2 hover:scale-105 transition-all duration-300 flex-shrink-0 flex items-center gap-2 min-w-[160px]"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.9)',
+                                        backdropFilter: 'blur(30px) saturate(150%)',
+                                        border: '1px solid rgba(255, 255, 255, 0.5)',
+                                        boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)',
+                                    }}
+                                >
+                                    <div className="text-xl">{item.icon}</div>
+                                    <div className="text-left">
+                                        <div className="font-semibold text-xs" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>{item.label}</div>
+                                        <div className="text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>{item.desc}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </>
+
+        </div>
     )
 }

@@ -1,104 +1,206 @@
-import Link from 'next/link'
-import { InboxArrowDownIcon, PhoneIcon } from '@heroicons/react/20/solid'
+'use client'
 
-export const metadata = {
-    title: 'Wisnu - About',
-}
+import Link from 'next/link'
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon, InboxArrowDownIcon } from '@heroicons/react/24/outline'
+
+const navigation = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Experiences', href: '/experiences' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Education', href: '/educations' }
+]
 
 export default function About() {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
     return (
-        <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <svg
-                    className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
-                    aria-hidden="true"
-                >
-                    <defs>
-                        <pattern
-                            id="e813992c-7d03-4cc4-a2bd-151760b470a0"
-                            width={200}
-                            height={200}
-                            x="50%"
-                            y={-1}
-                            patternUnits="userSpaceOnUse"
+        <div className="min-h-screen w-screen relative overflow-hidden" style={{
+            backgroundColor: '#ffffffff',
+            backgroundImage: `
+                linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px',
+            backgroundPosition: '0 0',
+        }}>
+            {/* Mobile Menu Dialog */}
+            <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l shadow-2xl" style={{
+                    borderLeft: '3px solid',
+                    borderImage: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234)) 1'
+                }}>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                W
+                            </div>
+                            <span className="font-semibold text-gray-900">Menu</span>
+                        </div>
+                        <button
+                            type="button"
+                            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-gray-100"
+                            onClick={() => setMobileMenuOpen(false)}
                         >
-                            <path d="M100 200V.5M.5 .5H200" fill="none" />
-                        </pattern>
-                    </defs>
-                    <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
-                        <path
-                            d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
-                            strokeWidth={0}
-                        />
-                    </svg>
-                    <rect width="100%" height="100%" strokeWidth={0} fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
-                </svg>
+                            <span className="sr-only">Close menu</span>
+                            <XMarkIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="mt-6 flow-root">
+                        <div className="space-y-2 py-6">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </Dialog.Panel>
+            </Dialog>
+
+            {/* Navigation Bar - Stuck to top with gradient top border */}
+            <div className="fixed top-0 left-0 right-0 z-20">
+                {/* Gradient top border */}
+                <div className="h-[10px]" style={{
+                    background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                }}></div>
+
+                {/* White background nav */}
+                <nav className="px-6 py-4" style={{
+                    backgroundColor: 'rgba(0, 140, 255, 0.1)',
+                    backdropFilter: 'blur(2px)',
+                    WebkitBackdropFilter: 'blur(2px)',
+                }}>
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
+                        <div className="flex lg:flex-1">
+                            <Link href="/" className="group flex items-center gap-2">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    W
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="flex lg:hidden">
+                            <button
+                                type="button"
+                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                onClick={() => setMobileMenuOpen(true)}
+                            >
+                                <span className="sr-only">Open main menu</span>
+                                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                            </button>
+                        </div>
+                        <div className="hidden lg:flex lg:gap-x-2">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/about'
+                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                        : 'text-gray-900 hover:bg-gray-100'
+                                        }`}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="hidden lg:flex lg:flex-1 lg:justify-end" />
+                    </div>
+                </nav>
             </div>
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
-                <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="lg:max-w-lg">
-                            <p className="text-base font-semibold leading-7 text-indigo-600">About</p>
-                            <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Wisnu Wijokangko</h1>
-                            {/* <p className="mt-6 text-xl leading-8 text-gray-700"></p> */}
+
+            {/* Main Content */}
+            <div className="relative pt-32 pb-16 px-6">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                        {/* Left Column - Text Content */}
+                        <div className="space-y-8 mt-20">
+                            {/* Header */}
+                            <div>
+                                <p className="text-sm font-semibold text-blue-600 mb-2">About</p>
+                                <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                                    Wisnu Wijokangko
+                                </h1>
+                            </div>
+
+                            {/* Description */}
+                            <div className="space-y-4 text-base leading-7" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
+                                <p>
+                                    Passionate software engineer with a specialization in backend development. With years of experience in the tech industry, I've had the privilege of leading talented teams of engineers, guiding them towards success. My journey in this field has been driven by an insatiable curiosity and a constant desire to learn new things.
+                                </p>
+                                <p>
+                                    Hailing from the charming city of Kudus in Central Java (🇮🇩), I bring a unique perspective to my work. I am dedicated to helping companies and teams progress, whether it's through optimizing code, building robust systems, or fostering a culture of continuous improvement.
+                                </p>
+                            </div>
+
+                            {/* Contact Information */}
+                            <div className="space-y-6 pt-4">
+                                <h2 className="text-lg font-semibold" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Get in Touch</h2>
+                                <ul className="space-y-4">
+                                    <li className="flex gap-x-3 items-start">
+                                        <InboxArrowDownIcon className="h-6 w-6 flex-none text-blue-600" aria-hidden="true" />
+                                        <div>
+                                            <strong className="font-semibold block" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Email</strong>
+                                            <a href="mailto:dti.wisnu@gmail.com" className="text-blue-600 hover:text-blue-800 transition-colors">
+                                                dti.wisnu@gmail.com
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li className="flex gap-x-3 items-start">
+                                        <svg className="h-6 w-6 flex-none text-blue-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                        </svg>
+                                        <div>
+                                            <strong className="font-semibold block" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>LinkedIn</strong>
+                                            <a href="https://www.linkedin.com/in/wisnuwijo/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
+                                                linkedin.com/in/wisnuwijo
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Navigation Links */}
+                            <div className="pt-8">
+                                <h2 className="text-lg font-semibold mb-4" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Explore More</h2>
+                                <div className="flex flex-wrap gap-3">
+                                    <Link href="/portfolio" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                        Portfolio
+                                    </Link>
+                                    <Link href="/skills" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                        Skills
+                                    </Link>
+                                    <Link href="/experiences" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                        Experiences
+                                    </Link>
+                                    <Link href="/educations" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                        Education
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-                    <div className="rounded-full overflow-hidden">
-                        <img
-                            className="rounded-xl ring-1 ring-gray-400/10"
-                            src="https://dygdaya.com/wp-content/uploads/2024/02/wisnu02.png"
-                            alt=""
-                        />
-                    </div>
-                </div>
-                <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
-                            <p>
-                                Passionate software engineer with a specialization in backend development. With years of experience in the tech industry, I've had the privilege of leading talented teams of engineers, guiding them towards success. My journey in this field has been driven by an insatiable curiosity and a constant desire to learn new things. 
-                                Hailing from the charming city of Kudus in Central Java ( 🇮🇩), I bring a unique perspective to my work. I am dedicated to helping companies and teams progress, whether it's through optimizing code, building robust systems, or fostering a culture of continuous improvement.
-                            </p>
-                            <ul role="list" className="mt-8 space-y-8 text-gray-600">
-                                <li className="flex gap-x-3">
-                                    <InboxArrowDownIcon className="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
-                                    <span>
-                                        <strong className="font-semibold text-gray-900">Email</strong> <br/>
-                                        dti.wisnu@gmail.com
-                                    </span>
-                                </li>
-                                <li className="flex gap-x-3">
-                                    <PhoneIcon className="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
-                                    <span>
-                                        <strong className="font-semibold text-gray-900">Phone Number</strong> <br/>
-                                        +62-882-3203-2477
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="lg:max-w-lg">
-                            <p className="text-base leading-7 text-gray-600">Navigations</p>
-                            <div className="mt-5">
-                                <Link href="/portfolio" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Portfolio
-                                </Link>
-                                <Link href="/skills" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Skill
-                                </Link> <br /><br />
-                                <Link href="/experiences" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Experiences
-                                </Link>
-                                <Link href="/educations" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Educations
-                                </Link>
-                                <Link href="/" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Home
-                                </Link>
+
+                        {/* Right Column - Image */}
+                        <div className="flex items-center justify-center min-h-[600px]">
+                            <div className="relative rounded-full overflow-hidden shadow-2xl max-w-[50%]" style={{
+                                background: 'linear-gradient(to bottom right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                                padding: '4px'
+                            }}>
+                                <div className="rounded-full overflow-hidden bg-white">
+                                    <img
+                                        className="w-full h-auto"
+                                        src="/images/wisnu.jpg"
+                                        alt="Wisnu Wijokangko"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

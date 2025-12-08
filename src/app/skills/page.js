@@ -1,167 +1,247 @@
-import Link from 'next/link'
+'use client'
 
-export const metadata = {
-    title: 'Wisnu - Skills',
-}
+import Link from 'next/link'
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+
+const navigation = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Experiences', href: '/experiences' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Education', href: '/educations' }
+]
+
+const mainSkills = [
+    {
+        name: "Spring Boot",
+        level: "Advanced",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+        description: "High availability, event-driven architecture, asynchronous programming, multi-threading, RESTful API"
+    },
+    {
+        name: "Go",
+        level: "Intermediate",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
+        description: "Go routine, Gin, multi-threading, RESTful API"
+    },
+    {
+        name: "Flutter",
+        level: "Advanced",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+        description: "State management (BLoC), offline mode, mobile notification, published app in iOS and Android"
+    },
+    {
+        name: "Laravel",
+        level: "Advanced",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+        description: "Data management, authentication, and restful API service"
+    },
+    {
+        name: "React/NextJS",
+        level: "Advanced",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+        description: "State management, realtime chat, reactflow"
+    }
+]
+
+const otherSkills = [
+    { name: "MySQL", level: "Advanced", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" },
+    { name: "Git", level: "Advanced", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+    { name: "PHP", level: "Advanced", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
+    { name: "MongoDB", level: "Intermediate", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+    { name: "Docker", level: "Intermediate", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain-wordmark.svg" },
+    { name: "AWS", level: "Beginner", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" }
+]
 
 export default function Skills() {
-    return (
-        <>
-            <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-                <div className="absolute inset-0 -z-10 overflow-hidden">
-                    <svg
-                        className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
-                        aria-hidden="true"
-                    >
-                        <defs>
-                            <pattern
-                                id="e813992c-7d03-4cc4-a2bd-151760b470a0"
-                                width={200}
-                                height={200}
-                                x="50%"
-                                y={-1}
-                                patternUnits="userSpaceOnUse"
-                            >
-                                <path d="M100 200V.5M.5 .5H200" fill="none" />
-                            </pattern>
-                        </defs>
-                        <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
-                            <path
-                                d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
-                                strokeWidth={0}
-                            />
-                        </svg>
-                        <rect width="100%" height="100%" strokeWidth={0} fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
-                    </svg>
-                </div>
-                <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
-                    <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                        <div className="lg:pr-4">
-                            <div className="lg:max-w-lg">
-                                <p className="text-base font-semibold leading-7 text-indigo-600">Skills</p>
-                                <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Wisnu Wijokangko</h1>
-                                {/* <p className="mt-6 text-xl leading-8 text-gray-700"></p> */}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-                        {/* right side */}
-                    </div>
-                    <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                        <div className="lg:pr-4">
-                            <div className="alert bg-secondary border-0">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" />
-                                <span className="text-white">
-                                    <strong>Spring Boot - Advance</strong>
-                                    <p>
-                                        High availability, event-driven architecture, asynchronous programming, multi-threading, RESTful API
-                                    </p>
-                                </span>
-                            </div>
-                            <div className="alert bg-secondary border-0 mt-2">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" />
-                                <span className="text-white">
-                                    <strong>Go - Intermediate</strong>
-                                    <p>
-                                        Go routine, Gin, multi-threading, RESTful API
-                                    </p>
-                                </span>
-                            </div>
-                            <div className="alert bg-secondary border-0 mt-2">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" />
-                                <span className="text-white">
-                                    <strong>Flutter - Advanced</strong>
-                                    <p>
-                                        State management (BLoC), offline mode, mobile notification, published app in iOS and Android
-                                    </p>
-                                </span>
-                            </div>
-                            <div className="alert bg-secondary border-0 mt-2">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" />
-                                <span className="text-white">
-                                    <strong>Laravel - Advanced</strong>
-                                    <p>
-                                        Data management, authentication, and restful API service.
-                                    </p>
-                                </span>
-                            </div>
-                            <div className="alert bg-secondary border-0 mt-2">
-                                <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
-                                <span className="text-white">
-                                    <strong>React/NextJS - Advanced</strong>
-                                    <p>
-                                        State management, realtime chat, reactflow
-                                    </p>
-                                </span>
-                            </div>
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-                            <p className="text-base leading-7 text-gray-600 mt-5">Others</p>
-                            <ul className="menu bg-base-200 w-100 rounded-box">
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" />
-                                        MySQL - Advanced
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
-                                        Git - Advanced
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" />
-                                        PHP - Advanced
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
-                                        MongoDB - Intermediate
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain-wordmark.svg" />
-                                        Docker - Intermediate
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img className='brightness-200 w-10' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />
-                                        AWS - Beginner
-                                    </a>
-                                </li>
-                            </ul>
+    return (
+        <div className="min-h-screen w-screen relative overflow-hidden" style={{
+            backgroundColor: '#ffffffff',
+            backgroundImage: `
+                linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px',
+            backgroundPosition: '0 0',
+        }}>
+            {/* Mobile Menu Dialog */}
+            <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l shadow-2xl" style={{
+                    borderLeft: '3px solid',
+                    borderImage: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234)) 1'
+                }}>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                W
+                            </div>
+                            <span className="font-semibold text-gray-900">Menu</span>
+                        </div>
+                        <button
+                            type="button"
+                            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-gray-100"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span className="sr-only">Close menu</span>
+                            <XMarkIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="mt-6 flow-root">
+                        <div className="space-y-2 py-6">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
                         </div>
                     </div>
-                    <div className="lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                        <div className="lg:pr-4">
-                            <div className="lg:max-w-lg">
-                                <p className="text-base leading-7 text-gray-600">Navigations</p>
-                                <div className="mt-5">
-                                    <Link href="/portfolio" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                        Portfolio
-                                    </Link>
-                                    <Link href="/educations" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                        Educations
-                                    </Link><br /><br />
-                                    <Link href="/experiences" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                        Experiences
-                                    </Link>
-                                    <Link href="/about" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                        About
-                                    </Link>
-                                    <Link href="/" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                        Home
-                                    </Link>
+                </Dialog.Panel>
+            </Dialog>
+
+            {/* Navigation Bar - Stuck to top with gradient top border */}
+            <div className="fixed top-0 left-0 right-0 z-20">
+                {/* Gradient top border */}
+                <div className="h-[10px]" style={{
+                    background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                }}></div>
+
+                {/* Blue background nav */}
+                <nav className="px-6 py-4" style={{
+                    backgroundColor: 'rgba(0, 140, 255, 0.1)',
+                    backdropFilter: 'blur(2px)',
+                    WebkitBackdropFilter: 'blur(2px)',
+                }}>
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
+                        <div className="flex lg:flex-1">
+                            <Link href="/" className="group flex items-center gap-2">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    W
                                 </div>
-                            </div>
+                            </Link>
+                        </div>
+                        <div className="flex lg:hidden">
+                            <button
+                                type="button"
+                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                onClick={() => setMobileMenuOpen(true)}
+                            >
+                                <span className="sr-only">Open main menu</span>
+                                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                            </button>
+                        </div>
+                        <div className="hidden lg:flex lg:gap-x-2">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/skills'
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                            : 'text-gray-900 hover:bg-gray-100'
+                                        }`}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="hidden lg:flex lg:flex-1 lg:justify-end" />
+                    </div>
+                </nav>
+            </div>
+
+            {/* Main Content */}
+            <div className="relative pt-32 pb-16 px-6 mt-20">
+                <div className="max-w-7xl mx-auto">
+                    {/* Header */}
+                    <div className="mb-12">
+                        <p className="text-sm font-semibold text-blue-600 mb-2">Skills</p>
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                            Technical Expertise
+                        </h1>
+                        <p className="text-base leading-7 max-w-2xl" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
+                            A comprehensive overview of my technical skills and proficiency levels across various technologies and frameworks.
+                        </p>
+                    </div>
+
+                    {/* Main Skills */}
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-bold mb-6" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Core Technologies</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {mainSkills.map((skill, index) => (
+                                <div
+                                    key={index}
+                                    className="rounded-2xl p-6 transition-all duration-300 hover:scale-105"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.8)',
+                                        backdropFilter: 'blur(10px)',
+                                        border: '1px solid rgba(0, 0, 0, 0.1)',
+                                        boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)',
+                                    }}
+                                >
+                                    <div className="flex items-start gap-4">
+                                        <img src={skill.icon} alt={skill.name} className="w-12 h-12" />
+                                        <div className="flex-1">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <h3 className="text-lg font-bold" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                                                    {skill.name}
+                                                </h3>
+                                                <span
+                                                    className="px-3 py-1 text-xs font-medium rounded-full text-white"
+                                                    style={{
+                                                        background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                                                    }}
+                                                >
+                                                    {skill.level}
+                                                </span>
+                                            </div>
+                                            <p className="text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
+                                                {skill.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Other Skills */}
+                    <div>
+                        <h2 className="text-2xl font-bold mb-6" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Additional Skills</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                            {otherSkills.map((skill, index) => (
+                                <div
+                                    key={index}
+                                    className="rounded-xl p-4 transition-all duration-300 hover:scale-105 flex flex-col items-center text-center"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.8)',
+                                        backdropFilter: 'blur(10px)',
+                                        border: '1px solid rgba(0, 0, 0, 0.1)',
+                                        boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)',
+                                    }}
+                                >
+                                    <img src={skill.icon} alt={skill.name} className="w-12 h-12 mb-3" />
+                                    <h4 className="text-sm font-semibold mb-1" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                                        {skill.name}
+                                    </h4>
+                                    <span className="text-xs" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
+                                        {skill.level}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

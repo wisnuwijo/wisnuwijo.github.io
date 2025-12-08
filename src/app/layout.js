@@ -6,12 +6,17 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Wisnu Wijokangko',
   description: 'Personal website and portfolio',
+  icons: {
+    icon: "/images/favicon.svg",
+  },
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+
         {/* Google Tag Manager */}
         <script
           async
@@ -29,14 +34,14 @@ export default function RootLayout({ children }) {
           }}
         />
         {/* End Google Tag Manager */}
-        
+
         {/* 10xlaunch */}
         <script
-            src="https://app.10xlaunch.ai/widget"
-            data-app-id="92be7fc9-3c5c-4bd2-8e71-30778e46f3e4"
-            async
-            defer
-            >
+          src="https://app.10xlaunch.ai/widget"
+          data-app-id="92be7fc9-3c5c-4bd2-8e71-30778e46f3e4"
+          async
+          defer
+        >
         </script>
         {/* End of 10xlaunch */}
       </head>

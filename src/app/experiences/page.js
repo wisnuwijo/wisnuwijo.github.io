@@ -1,127 +1,234 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
-function ExpDetail(props) {
-    return (
-        <li className="mb-10 ml-4">
-            <div className="absolute w-3 h-3 bg-indigo-400 rounded-full -left-1.5 border border-indigo-400"></div>
-            <time className="mb-1 text-sm font-semibold leading-none text-gray-400 dark:text-gray-500">{props.title}</time> <br />
-            <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{props.subtitle}</time>
-            <p className="mb-4 mt-2 text-sm font-normal text-gray-500 dark:text-gray-400">{props.desc}</p>
-        </li>
-    )
-}
+const navigation = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Experiences', href: '/experiences' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Education', href: '/educations' }
+]
 
-export const metadata = {
-    title: 'Wisnu - Experiences',
-}
+const experiences = [
+    {
+        title: "Technical Lead",
+        company: "Jatis Mobile",
+        period: "Jan 2022 - Present",
+        responsibilities: [
+            "Lead team of talented engineers",
+            "Convert given high-level software design to low-level software design",
+            "Implement unit tests and functional tests",
+            "Designed APIs, Middleware, and Business logic implementation for large-scale transaction",
+            "Wrote architecture documentation, and flow diagram",
+            "Optimized application and API performance",
+            "Troubleshoot and fixed issues across different services",
+            "Managed tasks and assist team members in day-to-day problems such as debugging issues and others",
+            "Helped define coding standards and development processes"
+        ]
+    },
+    {
+        title: "IT Team Lead",
+        company: "PT Bromindo Mekar Mitra",
+        period: "Oct 2019 - Jan 2022",
+        responsibilities: [
+            "Monitored and taking care of my teamwork progress",
+            "Transformed business requirements into a detailed technical plan",
+            "Lead and coordinate the project",
+            "Grow engineers to their utmost potential"
+        ]
+    },
+    {
+        title: "Mobile Developer (Flutter)",
+        company: "PT Bromindo Mekar Mitra",
+        period: "Feb 2019 - Oct 2019",
+        responsibilities: [
+            "Using Flutter to optimize app features to be compatible with a wider variety of mobile devices",
+            "Built a robust application that can work without connection to provide a better experience to the users resulting in 45% users increase",
+            "Improved the app performance by reducing latency from minutes into a matter of seconds"
+        ]
+    },
+    {
+        title: "Web Developer",
+        company: "PT Bromindo Mekar Mitra",
+        period: "May 2018 – Feb 2019",
+        responsibilities: [
+            "Speed up internal team job time processing from a half-hour to seconds by digitizing all manual documents and automating tasks to reduce human error by creating web applications that handle all the flow and process"
+        ]
+    }
+]
 
 export default function Experiences() {
-    return (
-        <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <svg
-                    className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
-                    aria-hidden="true"
-                >
-                    <defs>
-                        <pattern
-                            id="e813992c-7d03-4cc4-a2bd-151760b470a0"
-                            width={200}
-                            height={200}
-                            x="50%"
-                            y={-1}
-                            patternUnits="userSpaceOnUse"
-                        >
-                            <path d="M100 200V.5M.5 .5H200" fill="none" />
-                        </pattern>
-                    </defs>
-                    <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
-                        <path
-                            d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
-                            strokeWidth={0}
-                        />
-                    </svg>
-                    <rect width="100%" height="100%" strokeWidth={0} fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
-                </svg>
-            </div>
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
-                <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="lg:max-w-lg">
-                            <p className="text-base font-semibold leading-7 text-indigo-600">Experiences</p>
-                            <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Wisnu Wijokangko</h1>
-                            {/* <p className="mt-6 text-xl leading-8 text-gray-700"></p> */}
-                        </div>
-                    </div>
-                </div>
-                <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
-                            <div className="relative isolate overflow-hidden bg-white px-6 lg:overflow-visible lg:px-0">
-                                <div className='container pl-2'>
-                                    <ol className="relative border-l border-indigo-200">
-                                        <ExpDetail title="Technical Lead - Jatis Mobile" subtitle="Jan 2022 - Present" desc={<>
-                                            <ul>
-                                                <li>● Lead team of talented engineers</li>
-                                                <li>● Convert given high-level software design to low-level software design</li>
-                                                <li>● Implement unit tests and functional tests</li>
-                                                <li>● Designed APIs, Middleware, and Business logic implementation for large-scale transaction</li>
-                                                <li>● Wrote architecture documentation, and flow diagram</li>
-                                                <li>● Optimized application and API performance</li>
-                                                <li>● Troubleshoot and fixed issues across different services</li>
-                                                <li>● Managed tasks and assist team members in day-to-day problems such as debugging issues and others</li>
-                                                <li>● Helped define coding standards and development processes</li>
-                                            </ul>
-                                        </>} />
-                                        <ExpDetail title="IT Team Lead - PT Bromindo Mekar Mitra" subtitle="Oct 2019 - Jan 2022" desc={<>
-                                            <ul>
-                                                <li>● Monitored and taking care of my teamwork progress.</li>
-                                                <li>● Transformed business requirements into a detailed technical plan.</li>
-                                                <li>● Lead and coordinate the project.</li>
-                                                <li>● Grow engineers to their utmost potential.</li>
-                                            </ul>
-                                        </>} />
-                                        <ExpDetail title="Mobile Developer (Flutter) - PT Bromindo Mekar Mitra" subtitle="Feb 2019 - Oct 2019" desc={<>
-                                            <ul>
-                                                <li>● Using Flutter to optimize app features to be compatible with a wider variety of mobile devices.</li>
-                                                <li>● Built a robust application that can work without connection to provide a better experience to the users
-                                                    resulting in 45% users increase.</li>
-                                                <li>● Improved the app performance by reducing latency from minutes into a matter of seconds.</li>
-                                            </ul>
-                                        </>} />
-                                        <ExpDetail title="Web Developer - PT Bromindo Mekar Mitra" subtitle="May 2018 – Feb 2019" desc={<>
-                                            <ul>
-                                                <li>● Speed up internal team job time processing from a half-hour to seconds by digitizing all manual documents and automating tasks to reduce human error by creating web applications that handle all the flow and process.</li>
-                                            </ul>
-                                        </>} />
-                                    </ol>
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-                                </div>
+    return (
+        <div className="min-h-screen w-screen relative overflow-hidden" style={{
+            backgroundColor: '#ffffffff',
+            backgroundImage: `
+                linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px',
+            backgroundPosition: '0 0',
+        }}>
+            {/* Mobile Menu Dialog */}
+            <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l shadow-2xl" style={{
+                    borderLeft: '3px solid',
+                    borderImage: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234)) 1'
+                }}>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                W
                             </div>
+                            <span className="font-semibold text-gray-900">Menu</span>
+                        </div>
+                        <button
+                            type="button"
+                            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-gray-100"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span className="sr-only">Close menu</span>
+                            <XMarkIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="mt-6 flow-root">
+                        <div className="space-y-2 py-6">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
                         </div>
                     </div>
-                </div>
-                <div className="lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div className="lg:pr-4">
-                        <div className="lg:max-w-lg">
-                            <p className="text-base leading-7 text-gray-600">Navigations</p>
-                            <div className="mt-5">
-                                <Link href="/portfolio" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Portfolio
+                </Dialog.Panel>
+            </Dialog>
+
+            {/* Navigation Bar - Stuck to top with gradient top border */}
+            <div className="fixed top-0 left-0 right-0 z-20">
+                {/* Gradient top border */}
+                <div className="h-[10px]" style={{
+                    background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                }}></div>
+
+                {/* Blue background nav */}
+                <nav className="px-6 py-4" style={{
+                    backgroundColor: 'rgba(0, 140, 255, 0.1)',
+                    backdropFilter: 'blur(2px)',
+                    WebkitBackdropFilter: 'blur(2px)',
+                }}>
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
+                        <div className="flex lg:flex-1">
+                            <Link href="/" className="group flex items-center gap-2">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    W
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="flex lg:hidden">
+                            <button
+                                type="button"
+                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
+                                onClick={() => setMobileMenuOpen(true)}
+                            >
+                                <span className="sr-only">Open main menu</span>
+                                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                            </button>
+                        </div>
+                        <div className="hidden lg:flex lg:gap-x-2">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/experiences'
+                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                        : 'text-gray-900 hover:bg-gray-100'
+                                        }`}
+                                >
+                                    {item.name}
                                 </Link>
-                                <Link href="/skills" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Skill
-                                </Link><br /><br />
-                                <Link href="/educations" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Education
-                                </Link>
-                                <Link href="/about" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    About
-                                </Link>
-                                <Link href="/" className="mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-0">
-                                    Home
-                                </Link>
-                            </div>
+                            ))}
+                        </div>
+                        <div className="hidden lg:flex lg:flex-1 lg:justify-end" />
+                    </div>
+                </nav>
+            </div>
+
+            {/* Main Content */}
+            <div className="relative pt-32 pb-16 px-6 mt-20">
+                <div className="max-w-7xl mx-auto">
+                    {/* Header */}
+                    <div className="mb-12">
+                        <p className="text-sm font-semibold text-blue-600 mb-2">Experiences</p>
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                            Professional Journey
+                        </h1>
+                        <p className="text-base leading-7 max-w-2xl" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
+                            My career progression from Web Developer to Technical Lead, showcasing growth in leadership and technical expertise.
+                        </p>
+                    </div>
+
+                    {/* Timeline */}
+                    <div className="relative">
+                        {/* Timeline line */}
+                        <div className="absolute left-0 md:left-8 top-0 bottom-0 w-0.5" style={{
+                            background: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234))',
+                        }}></div>
+
+                        {/* Experience items */}
+                        <div className="space-y-8">
+                            {experiences.map((exp, index) => (
+                                <div key={index} className="relative pl-8 md:pl-20">
+                                    {/* Timeline dot */}
+                                    <div className="absolute left-[-6px] md:left-[26px] top-2 w-3 h-3 rounded-full" style={{
+                                        background: 'linear-gradient(to bottom right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                                        boxShadow: '0 0 0 4px rgba(37, 99, 235, 0.1)'
+                                    }}></div>
+
+                                    {/* Experience card */}
+                                    <div
+                                        className="rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02]"
+                                        style={{
+                                            background: 'rgba(255, 255, 255, 0.8)',
+                                            backdropFilter: 'blur(10px)',
+                                            border: '1px solid rgba(0, 0, 0, 0.1)',
+                                            boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)',
+                                        }}
+                                    >
+                                        <div className="mb-4">
+                                            <h3 className="text-xl font-bold mb-1" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
+                                                {exp.title}
+                                            </h3>
+                                            <p className="text-sm font-semibold mb-1" style={{ color: 'rgba(37, 99, 235, 1)' }}>
+                                                {exp.company}
+                                            </p>
+                                            <p className="text-sm" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
+                                                {exp.period}
+                                            </p>
+                                        </div>
+
+                                        <ul className="space-y-2">
+                                            {exp.responsibilities.map((resp, i) => (
+                                                <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
+                                                    <span className="text-blue-600 mt-1">•</span>
+                                                    <span>{resp}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
