@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import posthog from 'posthog-js'
 
 const navigation = [
     { name: 'Home', href: '/' },
@@ -63,7 +64,10 @@ export default function Index() {
                                     key={item.name}
                                     href={item.href}
                                     className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => {
+                                        posthog.capture(`clicked_mobile_nav_${item.name.toLowerCase().replace(' ', '_')}`)
+                                        setMobileMenuOpen(false)
+                                    }}
                                 >
                                     {item.name}
                                 </Link>
@@ -88,7 +92,7 @@ export default function Index() {
                 }}>
                     <div className="max-w-7xl mx-auto flex items-center justify-between">
                         <div className="flex lg:flex-1">
-                            <Link href="/" className="group flex items-center gap-2">
+                            <Link href="/" className="group flex items-center gap-2" onClick={() => posthog.capture('clicked_logo')}>
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
                                     W
                                 </div>
@@ -98,7 +102,10 @@ export default function Index() {
                             <button
                                 type="button"
                                 className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                onClick={() => setMobileMenuOpen(true)}
+                                onClick={() => {
+                                    posthog.capture('clicked_mobile_menu_open')
+                                    setMobileMenuOpen(true)
+                                }}
                             >
                                 <span className="sr-only">Open main menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -113,6 +120,7 @@ export default function Index() {
                                         ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                                         : 'text-gray-900 hover:bg-gray-100'
                                         }`}
+                                    onClick={() => posthog.capture(`clicked_nav_${item.name.toLowerCase().replace(' ', '_')}`)}
                                 >
                                     {item.name}
                                 </Link>
@@ -177,6 +185,7 @@ export default function Index() {
                                 <a
                                     href="/about"
                                     className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
+                                    onClick={() => posthog.capture('clicked_cta_get_to_know_me')}
                                 >
                                     <span className="relative z-10">Get to know me</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -190,6 +199,7 @@ export default function Index() {
                                         backdropFilter: 'blur(30px) saturate(150%)',
                                         border: '1px solid rgba(0, 0, 0, 0.15)',
                                     }}
+                                    onClick={() => posthog.capture('clicked_cta_see_portfolio')}
                                 >
                                     See Portfolio
                                     <span className="inline-block transition-transform group-hover:translate-x-1">→</span>

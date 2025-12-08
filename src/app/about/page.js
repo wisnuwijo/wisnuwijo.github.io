@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, InboxArrowDownIcon } from '@heroicons/react/24/outline'
+import posthog from 'posthog-js'
 
 const navigation = [
     { name: 'Home', href: '/' },
@@ -57,7 +58,10 @@ export default function About() {
                                     key={item.name}
                                     href={item.href}
                                     className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => {
+                                        posthog.capture(`clicked_mobile_nav_${item.name.toLowerCase().replace(' ', '_')}_about_page`)
+                                        setMobileMenuOpen(false)
+                                    }}
                                 >
                                     {item.name}
                                 </Link>
@@ -82,7 +86,7 @@ export default function About() {
                 }}>
                     <div className="max-w-7xl mx-auto flex items-center justify-between">
                         <div className="flex lg:flex-1">
-                            <Link href="/" className="group flex items-center gap-2">
+                            <Link href="/" className="group flex items-center gap-2" onClick={() => posthog.capture('clicked_logo_about_page')}>
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
                                     W
                                 </div>
@@ -92,7 +96,10 @@ export default function About() {
                             <button
                                 type="button"
                                 className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                onClick={() => setMobileMenuOpen(true)}
+                                onClick={() => {
+                                    posthog.capture('clicked_mobile_menu_open_about_page')
+                                    setMobileMenuOpen(true)
+                                }}
                             >
                                 <span className="sr-only">Open main menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -104,9 +111,10 @@ export default function About() {
                                     key={item.name}
                                     href={item.href}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/about'
-                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                                        : 'text-gray-900 hover:bg-gray-100'
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                            : 'text-gray-900 hover:bg-gray-100'
                                         }`}
+                                    onClick={() => posthog.capture(`clicked_nav_${item.name.toLowerCase().replace(' ', '_')}_about_page`)}
                                 >
                                     {item.name}
                                 </Link>
@@ -121,8 +129,24 @@ export default function About() {
             <div className="relative pt-32 pb-16 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                        {/* Left Column - Text Content */}
-                        <div className="space-y-8 mt-20">
+                        {/* Right Column - Image (appears first on mobile) */}
+                        <div className="flex items-center justify-center min-h-[400px] lg:min-h-[600px] order-1 lg:order-2">
+                            <div className="relative rounded-full overflow-hidden shadow-2xl max-w-[50%]" style={{
+                                background: 'linear-gradient(to bottom right, rgb(37, 99, 235), rgb(147, 51, 234))',
+                                padding: '4px'
+                            }}>
+                                <div className="rounded-full overflow-hidden bg-white">
+                                    <img
+                                        className="w-full h-auto"
+                                        src="/images/wisnu.jpg"
+                                        alt="Wisnu Wijokangko"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Left Column - Text Content (appears second on mobile) */}
+                        <div className="space-y-8 lg:mt-20 order-2 lg:order-1">
                             {/* Header */}
                             <div>
                                 <p className="text-sm font-semibold text-blue-600 mb-2">About</p>
@@ -149,7 +173,7 @@ export default function About() {
                                         <InboxArrowDownIcon className="h-6 w-6 flex-none text-blue-600" aria-hidden="true" />
                                         <div>
                                             <strong className="font-semibold block" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Email</strong>
-                                            <a href="mailto:dti.wisnu@gmail.com" className="text-blue-600 hover:text-blue-800 transition-colors">
+                                            <a href="mailto:dti.wisnu@gmail.com" className="text-blue-600 hover:text-blue-800 transition-colors" onClick={() => posthog.capture('clicked_email_link')}>
                                                 dti.wisnu@gmail.com
                                             </a>
                                         </div>
@@ -160,7 +184,7 @@ export default function About() {
                                         </svg>
                                         <div>
                                             <strong className="font-semibold block" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>LinkedIn</strong>
-                                            <a href="https://www.linkedin.com/in/wisnuwijo/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
+                                            <a href="https://www.linkedin.com/in/wisnuwijo/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors" onClick={() => posthog.capture('clicked_linkedin_link')}>
                                                 linkedin.com/in/wisnuwijo
                                             </a>
                                         </div>
@@ -172,34 +196,18 @@ export default function About() {
                             <div className="pt-8">
                                 <h2 className="text-lg font-semibold mb-4" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>Explore More</h2>
                                 <div className="flex flex-wrap gap-3">
-                                    <Link href="/portfolio" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <Link href="/portfolio" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => posthog.capture('clicked_explore_portfolio')}>
                                         Portfolio
                                     </Link>
-                                    <Link href="/skills" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <Link href="/skills" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => posthog.capture('clicked_explore_skills')}>
                                         Skills
                                     </Link>
-                                    <Link href="/experiences" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <Link href="/experiences" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => posthog.capture('clicked_explore_experiences')}>
                                         Experiences
                                     </Link>
-                                    <Link href="/educations" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <Link href="/educations" className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => posthog.capture('clicked_explore_education')}>
                                         Education
                                     </Link>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Right Column - Image */}
-                        <div className="flex items-center justify-center min-h-[600px]">
-                            <div className="relative rounded-full overflow-hidden shadow-2xl max-w-[50%]" style={{
-                                background: 'linear-gradient(to bottom right, rgb(37, 99, 235), rgb(147, 51, 234))',
-                                padding: '4px'
-                            }}>
-                                <div className="rounded-full overflow-hidden bg-white">
-                                    <img
-                                        className="w-full h-auto"
-                                        src="/images/wisnu.jpg"
-                                        alt="Wisnu Wijokangko"
-                                    />
                                 </div>
                             </div>
                         </div>

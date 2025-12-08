@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import posthog from 'posthog-js'
 
 const navigation = [
     { name: 'Home', href: '/' },
@@ -90,7 +91,10 @@ export default function Educations() {
                                     key={item.name}
                                     href={item.href}
                                     className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => {
+                                        posthog.capture(`clicked_mobile_nav_${item.name.toLowerCase().replace(' ', '_')}_education_page`)
+                                        setMobileMenuOpen(false)
+                                    }}
                                 >
                                     {item.name}
                                 </Link>
@@ -115,7 +119,7 @@ export default function Educations() {
                 }}>
                     <div className="max-w-7xl mx-auto flex items-center justify-between">
                         <div className="flex lg:flex-1">
-                            <Link href="/" className="group flex items-center gap-2">
+                            <Link href="/" className="group flex items-center gap-2" onClick={() => posthog.capture('clicked_logo_education_page')}>
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
                                     W
                                 </div>
@@ -125,7 +129,10 @@ export default function Educations() {
                             <button
                                 type="button"
                                 className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                onClick={() => setMobileMenuOpen(true)}
+                                onClick={() => {
+                                    posthog.capture('clicked_mobile_menu_open_education_page')
+                                    setMobileMenuOpen(true)
+                                }}
                             >
                                 <span className="sr-only">Open main menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -140,6 +147,7 @@ export default function Educations() {
                                             ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                                             : 'text-gray-900 hover:bg-gray-100'
                                         }`}
+                                    onClick={() => posthog.capture(`clicked_nav_${item.name.toLowerCase().replace(' ', '_')}_education_page`)}
                                 >
                                     {item.name}
                                 </Link>
