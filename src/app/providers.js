@@ -8,7 +8,9 @@ export default function Providers({ children }) {
     useEffect(() => {
         posthog.init("phc_qsg0RrsCd5MdGyDM82lvVv8QbzlI0o2c7aYP7TSDQC6", {
             api_host: "https://us.i.posthog.com",
-            capture_pageview: false, // We'll do manual tracking
+            capture_pageview: false, // Managed manually via TrackPageView component
+            capture_pageleave: true,
+            autocapture: true,
         });
     }, []);
 

@@ -1,263 +1,258 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import posthog from 'posthog-js'
+import { useYOE } from '../lib/useYOE'
+import {
+  ServerStackIcon,
+  CpuChipIcon,
+  ShieldCheckIcon,
+  CodeBracketIcon
+} from '@heroicons/react/24/outline'
 
-const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Experiences', href: '/experiences' },
-    { name: 'Skills', href: '/skills' },
-    { name: 'Education', href: '/educations' }
-]
+export default function Home() {
+  const yoe = useYOE()
 
-export default function Index() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const [yoe, setYoe] = useState(0)
+  return (
+    <div className="relative z-10 space-y-24 pb-24">
 
-    useEffect(() => {
-        const yoe = new Date().getFullYear() - 2018
-        setYoe(yoe)
-    }, [])
-
-    return (
-        <div className="h-screen w-screen relative overflow-hidden" style={{
-            backgroundColor: '#ffffffff',
-            backgroundImage: `
-                linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-                linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)
-            `,
-            backgroundSize: '20px 20px',
-            backgroundPosition: '0 0',
-        }}>
-            {/* Mobile Menu Dialog */}
-            <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-                <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
-                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l shadow-2xl" style={{
-                    borderLeft: '3px solid',
-                    borderImage: 'linear-gradient(to bottom, rgb(37, 99, 235), rgb(147, 51, 234)) 1'
-                }}>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
-                                W
-                            </div>
-                            <span className="font-semibold text-gray-900">Menu</span>
-                        </div>
-                        <button
-                            type="button"
-                            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-gray-100"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            <span className="sr-only">Close menu</span>
-                            <XMarkIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
-                        </button>
-                    </div>
-                    <div className="mt-6 flow-root">
-                        <div className="space-y-2 py-6">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className="block rounded-xl px-4 py-3 text-base font-semibold text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                    onClick={() => {
-                                        posthog.capture(`clicked_mobile_nav_${item.name.toLowerCase().replace(' ', '_')}`)
-                                        setMobileMenuOpen(false)
-                                    }}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </Dialog.Panel>
-            </Dialog>
-
-            {/* Navigation Bar - Stuck to top with gradient top border */}
-            <div className="fixed top-0 left-0 right-0 z-20">
-                {/* Gradient top border */}
-                <div className="h-[10px]" style={{
-                    background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
-                }}></div>
-
-                {/* Blue background nav */}
-                <nav className="px-6 py-4" style={{
-                    backgroundColor: 'rgba(0, 140, 255, 0.1)',
-                    backdropFilter: 'blur(2px)',
-                    WebkitBackdropFilter: 'blur(2px)',
-                }}>
-                    <div className="max-w-7xl mx-auto flex items-center justify-between">
-                        <div className="flex lg:flex-1">
-                            <Link href="/" className="group flex items-center gap-2" onClick={() => posthog.capture('clicked_logo')}>
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                    W
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="flex lg:hidden">
-                            <button
-                                type="button"
-                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 transition-all duration-200 hover:bg-gray-100"
-                                onClick={() => {
-                                    posthog.capture('clicked_mobile_menu_open')
-                                    setMobileMenuOpen(true)
-                                }}
-                            >
-                                <span className="sr-only">Open main menu</span>
-                                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                            </button>
-                        </div>
-                        <div className="hidden lg:flex lg:gap-x-2">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 ${item.href === '/'
-                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                                        : 'text-gray-900 hover:bg-gray-100'
-                                        }`}
-                                    onClick={() => posthog.capture(`clicked_nav_${item.name.toLowerCase().replace(' ', '_')}`)}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                        </div>
-                        <div className="hidden lg:flex lg:flex-1 lg:justify-end" />
-                    </div>
-                </nav>
+        {/* HERO SECTION */}
+        <section id="hero" className="pt-10 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1200px] mx-auto text-left space-y-8">
+            
+            {/* Eyebrow Pill Tag */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="pill-tag-soft">
+                SOFTWARE ENGINEER
+              </span>
+              <span className="pill-tag-soft !bg-canvas !border-hairline text-ink font-mono text-[11px]">
+                FULL-STACK &amp; CLOUD SYSTEMS
+              </span>
             </div>
 
-            {/* Main content */}
-            <div className="w-full h-full relative z-10 flex flex-col pt-24">
-                {/* Content area - centered */}
-                <div className="flex-1 flex items-center justify-center overflow-y-auto">
-                    <div className="text-center space-y-4 w-full py-8">
-                        <div className="px-6 max-w-4xl mx-auto">
-                            {/* Avatar */}
-                            <div className="flex justify-center mb-4">
-                                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-1 shadow-xl">
-                                    <div className="w-full h-full rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold" style={{
-                                        color: 'rgba(255, 255, 255, 0.95)',
-                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(142, 209, 252, 0.15) 100%)',
-                                        backdropFilter: 'blur(40px) saturate(100%)',
-                                    }}>
-                                        W
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Greeting badge */}
-                            <div className="flex justify-center mb-4">
-                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{
-                                    color: 'rgba(0, 0, 0, 0.7)',
-                                    background: 'rgba(0, 0, 0, 0.05)',
-                                    backdropFilter: 'blur(30px) saturate(150%)',
-                                    border: '1px solid rgba(0, 0, 0, 0.1)',
-                                }}>
-                                    <span className="relative flex h-2 w-2">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                                    </span>
-                                    Available for opportunities
-                                </div>
-                            </div>
-
-                            {/* Main heading */}
-                            <div className="space-y-3 mb-4">
-                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>
-                                    Hello! I am
-                                    <br />
-                                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                                        Wisnu Wijokangko
-                                    </span>
-                                </h1>
-                                <p className="mt-3 text-sm md:text-base leading-relaxed max-w-xl mx-auto" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
-                                    Senior software engineer with {yoe}+ years of technical experience in designing and building user-friendly applications and a proven track record of leadership.
-                                </p>
-                            </div>
-
-                            {/* CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                                <a
-                                    href="/about"
-                                    className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
-                                    onClick={() => posthog.capture('clicked_cta_get_to_know_me')}
-                                >
-                                    <span className="relative z-10">Get to know me</span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </a>
-                                <a
-                                    href="/portfolio"
-                                    className="group px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2"
-                                    style={{
-                                        color: 'rgba(0, 0, 0, 0.8)',
-                                        background: 'rgba(0, 0, 0, 0.05)',
-                                        backdropFilter: 'blur(30px) saturate(150%)',
-                                        border: '1px solid rgba(0, 0, 0, 0.15)',
-                                    }}
-                                    onClick={() => posthog.capture('clicked_cta_see_portfolio')}
-                                >
-                                    See Portfolio
-                                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Scrolling feature cards - Fixed at bottom */}
-                <div className="w-full" style={{
-                    background: 'rgba(255, 255, 255, 1)',
-                    backdropFilter: 'blur(40px)',
-                    WebkitBackdropFilter: 'blur(40px)',
-                }}>
-                    <div className="overflow-hidden w-full py-6">
-                        <div className="flex gap-2 scroll-rtl">
-                            {[
-                                { icon: '💼', label: '5+ Years', desc: 'Experience' },
-                                { icon: '🚀', label: 'Full Stack', desc: 'Development' },
-                                { icon: '👥', label: 'Leadership', desc: 'Proven Track' },
-                                { icon: '⚡', label: 'Performance', desc: 'Optimization' },
-                                { icon: '🎨', label: 'UI/UX', desc: 'Design' },
-                                { icon: '☁️', label: 'Cloud', desc: 'Architecture' },
-                                { icon: '📱', label: 'Mobile', desc: 'Development' },
-                                { icon: '🔧', label: 'DevOps', desc: 'CI/CD' },
-                                // Duplicate items for seamless loop
-                                { icon: '💼', label: '5+ Years', desc: 'Experience' },
-                                { icon: '🚀', label: 'Full Stack', desc: 'Development' },
-                                { icon: '👥', label: 'Leadership', desc: 'Proven Track' },
-                                { icon: '⚡', label: 'Performance', desc: 'Optimization' },
-                                { icon: '🎨', label: 'UI/UX', desc: 'Design' },
-                                { icon: '☁️', label: 'Cloud', desc: 'Architecture' },
-                                { icon: '📱', label: 'Mobile', desc: 'Development' },
-                                { icon: '🔧', label: 'DevOps', desc: 'CI/CD' },
-                            ].map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="rounded-lg px-3 py-2 hover:scale-105 transition-all duration-300 flex-shrink-0 flex items-center gap-2 min-w-[160px]"
-                                    style={{
-                                        background: 'rgba(255, 255, 255, 0.9)',
-                                        backdropFilter: 'blur(30px) saturate(150%)',
-                                        border: '1px solid rgba(255, 255, 255, 0.5)',
-                                        boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)',
-                                    }}
-                                >
-                                    <div className="text-xl">{item.icon}</div>
-                                    <div className="text-left">
-                                        <div className="font-semibold text-xs" style={{ color: 'rgba(0, 0, 0, 0.9)' }}>{item.label}</div>
-                                        <div className="text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>{item.desc}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+            {/* Display XXL Headline with 300 Weight & Negative Tracking */}
+            <div className="max-w-4xl space-y-5">
+              <h1 className="display-xxl text-ink headline-shimmer pb-1">
+                Scalable digital products, full-stack delivery, and resilient system integrations.
+              </h1>
+              <p className="body-lg text-ink-secondary max-w-3xl font-light leading-relaxed">
+                I design, build, and maintain clean web and mobile applications across <strong className="font-normal text-ink">React and Flutter</strong>, backed by high-throughput services in <strong className="font-normal text-ink">Spring Boot, Go, and Node.js</strong>. Experienced in integrating enterprise RESTful APIs, translating AI-assisted prototypes into production-hardened systems, and mentoring engineering teams with <span className="tnum font-normal text-ink">{yoe}+</span> years of proven delivery.
+              </p>
             </div>
 
-        </div>
-    )
+            {/* CTA Hierarchy */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link
+                href="/experiences"
+                className="btn-primary-pill"
+                onClick={() => {
+                  posthog.capture('clicked_cta_get_to_know_me')
+                  posthog.capture('hero_cta_explore_journey')
+                }}
+              >
+                <span>Explore Delivery &amp; Track Record</span>
+                <span>→</span>
+              </Link>
+
+              <Link
+                href="/portfolio"
+                className="btn-secondary"
+                onClick={() => {
+                  posthog.capture('clicked_cta_see_portfolio')
+                }}
+              >
+                <span>See Production Projects (5)</span>
+              </Link>
+
+              <a
+                href="https://www.linkedin.com/in/wisnuwijo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                onClick={() => {
+                  posthog.capture('clicked_linkedin_link')
+                  posthog.capture('hero_cta_linkedin')
+                }}
+              >
+                <span>LinkedIn Profile</span>
+              </a>
+            </div>
+
+
+
+          </div>
+        </section>
+
+        {/* NUMERICS STRIP */}
+        <section className="py-12 bg-canvas border-y border-hairline">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="space-y-1">
+                <div className="display-lg text-ink tnum">{yoe}+</div>
+                <div className="body-md text-ink-secondary font-light">Years Full-Stack Delivery</div>
+                <div className="caption text-ink-mute tnum">2018 — {2018 + yoe} Production Practice</div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="display-lg text-primary tnum">100K+</div>
+                <div className="body-md text-ink-secondary font-light">API Integrations &amp; Trans.</div>
+                <div className="caption text-ink-mute">RESTful Third-Party &amp; Meta Gateways</div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="display-lg text-ink tnum">+45%</div>
+                <div className="body-md text-ink-secondary font-light">Web &amp; Mobile User Growth</div>
+                <div className="caption text-ink-mute">Clean UX &amp; Offline-First Sync</div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="display-lg text-primary tnum">30m ➔ 2s</div>
+                <div className="body-md text-ink-secondary font-light">Workflow Automation</div>
+                <div className="caption text-ink-mute">Digital Transformation Latency</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ROLE ALIGNMENT & VALUE PROPOSITION */}
+        <section className="px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1200px] mx-auto space-y-8">
+            <div className="space-y-3">
+              <span className="caption text-primary uppercase font-mono tracking-wider font-semibold">
+                FULL-STACK COMPETENCIES &amp; ROLE ALIGNMENT
+              </span>
+              <h2 className="display-xl text-ink">
+                Engineered for hands-on delivery, scale, and team mentorship.
+              </h2>
+              <p className="body-lg text-ink-secondary max-w-3xl font-light leading-relaxed">
+                Directly addressing modern digital product teams: here is how my hands-on craft delivers web &amp; mobile execution, enterprise system integrations, AI workflows, and high code quality.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Card 1: Web & Mobile */}
+              <div className="card-feature-light p-8 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="pill-tag-soft">FRONTEND &amp; MOBILE CRAFT</span>
+                  <CodeBracketIcon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="heading-lg text-ink">
+                  Full-Stack Web &amp; Mobile Applications
+                </h3>
+                <p className="body-md text-ink-secondary font-light leading-relaxed">
+                  Hands-on engineering across <strong className="font-normal text-ink">React, Next.js, and Tailwind CSS</strong> for clean, component-driven web interfaces, paired with <strong className="font-normal text-ink">Flutter</strong> for cross-platform mobile apps. Focused on sub-second rendering, offline-first synchronization, and seamless user experiences.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">React</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Tailwind CSS</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Next.js</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Flutter</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Mobile &amp; Web</span>
+                </div>
+              </div>
+
+              {/* Card 2: RESTful Integrations & Backend */}
+              <div className="card-feature-light p-8 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="pill-tag-soft">SYSTEM INTEGRATIONS</span>
+                  <ServerStackIcon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="heading-lg text-ink">
+                  RESTful APIs, Microservices &amp; Databases
+                </h3>
+                <p className="body-md text-ink-secondary font-light leading-relaxed">
+                  Proficient in designing robust RESTful APIs using <strong className="font-normal text-ink">Node.js, Express.js, PostgreSQL</strong>, alongside Java and Go. Proven track record integrating complex third-party platforms (WhatsApp Business API, payment gateways, ERPs) with sliding-window rate limiters, idempotency keys, and zero message loss.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Node.js</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Express.js</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">PostgreSQL</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">REST APIs</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Docker</span>
+                </div>
+              </div>
+
+              {/* Card 3: AI-Assisted Workflows & Production Hardening */}
+              <div className="card-feature-light p-8 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="pill-tag-soft">MODERN AI WORKFLOWS</span>
+                  <CpuChipIcon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="heading-lg text-ink">
+                  AI-Assisted Delivery &amp; Production Hardening
+                </h3>
+                <p className="body-md text-ink-secondary font-light leading-relaxed">
+                  Actively adopting modern AI-assisted engineering tools (<strong className="font-normal text-ink">Cursor, Lovable, GitHub Copilot</strong>) to accelerate delivery cycles. Experienced in taking rapid AI-generated prototypes and low-code outputs and re-engineering them into secure, scalable, type-safe, and production-ready architectures.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Cursor</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">AI Prototyping</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Low-Code to Prod</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Defensive Security</span>
+                </div>
+              </div>
+
+              {/* Card 4: Code Quality & Mentorship */}
+              <div className="card-feature-light p-8 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="pill-tag-soft">LEADERSHIP &amp; QUALITY</span>
+                  <ShieldCheckIcon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="heading-lg text-ink">
+                  Code Reviews, CI/CD &amp; Developer Mentorship
+                </h3>
+                <p className="body-md text-ink-secondary font-light leading-relaxed">
+                  Committed to high craftsmanship: conducting thorough code reviews, maintaining living documentation, and establishing automated <strong className="font-normal text-ink">CI/CD pipelines and Docker containerization</strong>. Passionate about mentoring junior developers and instilling defensive programming standards across cross-functional teams.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Code Reviews</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Junior Mentorship</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">CI/CD &amp; Git</span>
+                  <span className="px-2.5 py-1 rounded bg-canvas-soft border border-hairline text-xs font-mono text-ink-secondary">Azure / AWS Ready</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* GET IN TOUCH / COLLABORATION CTA */}
+        <section className="px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="card-cream-band text-center space-y-6">
+              <div className="flex items-center justify-center">
+                <span className="pill-tag-soft font-mono">GET IN TOUCH</span>
+              </div>
+
+              <div className="space-y-3 max-w-2xl mx-auto">
+                <h2 className="display-md text-ink">
+                  Have a project in mind or looking to collaborate?
+                </h2>
+                <p className="body-md text-ink-secondary font-light leading-relaxed">
+                  Whether you want to discuss full-stack engineering, explore technical collaborations, or talk about engineering opportunities, my inbox is always open.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <Link
+                  href="/about"
+                  className="btn-primary-pill"
+                  onClick={() => posthog.capture('clicked_home_cta_about')}
+                >
+                  <span>Get in Touch →</span>
+                </Link>
+                <a
+                  href="mailto:dti.wisnu@gmail.com"
+                  onClick={() => posthog.capture('clicked_email_link')}
+                  className="btn-secondary font-mono text-xs"
+                >
+                  <span>dti.wisnu@gmail.com</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+    </div>
+  )
 }

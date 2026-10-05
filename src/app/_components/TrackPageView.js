@@ -9,8 +9,17 @@ export default function TrackPageView() {
     const searchParams = useSearchParams();
 
     useEffect(() => {
-        const url = `${pathname}?${searchParams.toString()}`;
-        posthog.capture("$pageview", { url });
+        if (pathname) {
+            let url = typeof window !== 'undefined' ? window.location.origin + pathname : pathname;
+            if (searchParams && searchParams.toString()) {
+                url = `${url}?${searchParams.toString()}`;
+            }
+            posthog.capture("$pageview", {
+                $current_url: url,
+                path: pathname,
+                title: typeof document !== 'undefined' ? document.title : '',
+            });
+        }
     }, [pathname, searchParams]);
 
     return null;

@@ -7,10 +7,43 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        sans: ['Inter', 'SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      colors: {
+        primary: '#533afd',
+        'primary-deep': '#4434d4',
+        'primary-press': '#2e2b8c',
+        'primary-soft': '#665efd',
+        'primary-bg-subdued-hover': '#b9b9f9',
+        'brand-dark-900': '#1c1e54',
+        ink: '#0d253d',
+        'ink-secondary': '#273951',
+        'ink-mute': '#64748d',
+        'ink-mute-2': '#61718a',
+        'on-primary': '#ffffff',
+        canvas: '#ffffff',
+        'canvas-soft': '#f6f9fc',
+        'canvas-cream': '#f5e9d4',
+        hairline: '#e3e8ee',
+        'hairline-input': '#a8c3de',
+        ruby: '#ea2261',
+        magenta: '#f96bee',
+        lemon: '#9b6829',
+      },
+      borderRadius: {
+        xs: '4px',
+        sm: '6px',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
+        pill: '9999px',
+      },
+      boxShadow: {
+        level1: 'rgba(0, 55, 112, 0.08) 0 1px 3px',
+        level2: 'rgba(0, 55, 112, 0.08) 0 8px 24px, rgba(0, 55, 112, 0.04) 0 2px 6px',
+        'hero-card': '0 20px 40px -15px rgba(13, 37, 61, 0.15)',
       },
     },
   },
