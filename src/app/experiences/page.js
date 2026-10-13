@@ -92,12 +92,12 @@ export default function ExperiencesPage() {
   }
 
   const handleCopyEmail = () => {
-    const email = 'dti.wisnu@gmail.com'
+    const email = 'wisnu.wijokangko@outlook.com'
     navigator.clipboard.writeText(email).then(() => {
-      triggerToast('dti.wisnu@gmail.com copied to clipboard!')
+      triggerToast('wisnu.wijokangko@outlook.com copied to clipboard!')
       posthog.capture('copied_email_clipboard')
     }).catch(() => {
-      triggerToast('Email: dti.wisnu@gmail.com')
+      triggerToast('Email: wisnu.wijokangko@outlook.com')
     })
   }
 
@@ -226,11 +226,11 @@ export default function ExperiencesPage() {
                 <span>Get in Touch →</span>
               </Link>
               <a
-                href="mailto:dti.wisnu@gmail.com"
+                href="mailto:wisnu.wijokangko@outlook.com"
                 className="btn-secondary font-mono text-xs"
                 onClick={() => posthog.capture('clicked_email_link')}
               >
-                <span>dti.wisnu@gmail.com</span>
+                <span>wisnu.wijokangko@outlook.com</span>
               </a>
               <Link
                 href="/portfolio"

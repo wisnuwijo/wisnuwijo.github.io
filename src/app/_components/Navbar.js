@@ -46,12 +46,12 @@ export default function Navbar() {
   }
 
   const handleCopyEmail = () => {
-    const email = 'dti.wisnu@gmail.com'
+    const email = 'wisnu.wijokangko@outlook.com'
     navigator.clipboard.writeText(email).then(() => {
-      triggerToast('dti.wisnu@gmail.com copied to clipboard!')
+      triggerToast('wisnu.wijokangko@outlook.com copied to clipboard!')
       posthog.capture('copied_email_clipboard')
     }).catch(() => {
-      triggerToast('Email: dti.wisnu@gmail.com')
+      triggerToast('Email: wisnu.wijokangko@outlook.com')
     })
   }
 
@@ -198,7 +198,7 @@ export default function Navbar() {
                 isDarkPage ? '!text-white !border-white/20' : ''
               }`}
             >
-              dti.wisnu@gmail.com (Copy)
+              wisnu.wijokangko@outlook.com (Copy)
             </button>
             <Link
               href="/about"

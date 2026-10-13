@@ -242,11 +242,11 @@ export default function Home() {
                   <span>Get in Touch →</span>
                 </Link>
                 <a
-                  href="mailto:dti.wisnu@gmail.com"
+                  href="mailto:wisnu.wijokangko@outlook.com"
                   onClick={() => posthog.capture('clicked_email_link')}
                   className="btn-secondary font-mono text-xs"
                 >
-                  <span>dti.wisnu@gmail.com</span>
+                  <span>wisnu.wijokangko@outlook.com</span>
                 </a>
               </div>
             </div>

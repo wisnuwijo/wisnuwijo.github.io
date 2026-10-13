@@ -23,12 +23,12 @@ export default function AboutPage() {
   }
 
   const handleCopyEmail = () => {
-    const email = 'dti.wisnu@gmail.com'
+    const email = 'wisnu.wijokangko@outlook.com'
     navigator.clipboard.writeText(email).then(() => {
-      triggerToast('dti.wisnu@gmail.com copied to clipboard!')
+      triggerToast('wisnu.wijokangko@outlook.com copied to clipboard!')
       posthog.capture('copied_email_clipboard')
     }).catch(() => {
-      triggerToast('Email: dti.wisnu@gmail.com')
+      triggerToast('Email: wisnu.wijokangko@outlook.com')
     })
   }
 
@@ -96,11 +96,11 @@ export default function AboutPage() {
                     <InboxArrowDownIcon className="w-5 h-5 text-primary" />
                     <span className="font-light text-sm">Email:</span>
                     <a
-                      href="mailto:dti.wisnu@gmail.com"
+                      href="mailto:wisnu.wijokangko@outlook.com"
                       className="text-primary hover:underline font-mono text-sm"
                       onClick={() => posthog.capture('clicked_email_link')}
                     >
-                      dti.wisnu@gmail.com
+                      wisnu.wijokangko@outlook.com
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
@@ -199,11 +199,11 @@ export default function AboutPage() {
 
                 <div className="pt-4 space-y-2">
                   <a
-                    href="mailto:dti.wisnu@gmail.com"
+                    href="mailto:wisnu.wijokangko@outlook.com"
                     onClick={() => posthog.capture('clicked_email_link')}
                     className="btn-primary-pill w-full justify-center !py-2.5 !text-xs"
                   >
-                    <span>Send Email (dti.wisnu@gmail.com)</span>
+                    <span>Send Email (wisnu.wijokangko@outlook.com)</span>
                   </a>
                   <button onClick={handleCopyEmail} className="btn-secondary w-full justify-center !text-xs !border-hairline">
                     <span>Copy Contact Email</span>
